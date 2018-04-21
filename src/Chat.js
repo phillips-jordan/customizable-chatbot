@@ -6,14 +6,17 @@ let CHAT_SCREEN = "chat"
 let PROFILE_SCREEN = "profile"
 
 class Chat extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { allMsgs: [], currentMsg: "" }
     this.changeHandler = this.changeHandler.bind(this);
   }
   handleSubmit = (event) => {
+    let newMsgs = this.state.allMsgs;
+    newMsgs = newMsgs.concat(this.props.username + ": " + this.state.currentMsg);
+    newMsgs = newMsgs.concat("barbara: " + this.props.botMessage);
     // Fires when the submit button is clicked
-    this.setState({ allMsgs: this.state.allMsgs.concat(this.state.currentMsg) })
+    this.setState({ allMsgs: newMsgs })
     event.preventDefault();
   }
   changeHandler(event) {
@@ -21,12 +24,10 @@ class Chat extends Component {
     this.setState({ currentMsg: event.target.value })
   }
   render() {
-    let lify = str => (<li> {this.props.username} {str} </li>)
+    let lify = str => (<li> {str} </li>)
     return (<div>
       <ul>
         {this.state.allMsgs.map(lify)}
-        <li> Some message
-          </li>
       </ul>
       <form onSubmit={this.handleSubmit}>
         <label> Chat message <input value={this.state.currentMsg} onChange={this.changeHandler} type="text" /> </label>

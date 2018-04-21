@@ -16,7 +16,7 @@ class Login extends Component {
   }
   render() {
     // An text input box and a submit button
-    return (<form onSubmit={this.handleSubmit}>
+    return (<form onSubmit={this.handleSubmit} className="basic-grey">
       <label> Enter your nickname <input value={this.state.currentName} onChange={this.changeHandler} type="text" /> </label>
         <input type="submit" />
     </form>)
